@@ -1,0 +1,52 @@
+package com.klef.dev;
+
+import java.util.List;
+import java.util.Optional;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import com.klef.dev.Employee;
+import com.klef.dev.EmployeeRepository;
+
+@Service
+public class EmployeeService {
+
+    private EmployeeRepository repo;
+
+    @Autowired
+    public EmployeeService(EmployeeRepository repo) {
+        this.repo = repo;
+    }
+
+    // Get all employees
+    public List<Employee> getAllEmployees() {
+        return repo.findAll();
+    }
+
+    // Get one employee by ID
+    public Employee getEmployeeById(Long id) {
+        Optional<Employee> emp = repo.findById(id);
+        return emp.orElse(null);
+    }
+
+    // Create new employee
+    public Employee createEmployee(Employee emp) {
+        return repo.save(emp);
+    }
+
+    // Update employee
+    public Employee updateEmployee(Long id, Employee emp) {
+        Employee existing = getEmployeeById(id);
+        if (existing != null) {
+            existing.setName(emp.getName());
+            existing.setEmail(emp.getEmail());
+            existing.setDepartment(emp.getDepartment());
+            return repo.save(existing);
+        }
+        return null;
+    }
+
+    // Delete employee
+    public void deleteEmployee(Long id) {
+        repo.deleteById(id);
+    }
+}

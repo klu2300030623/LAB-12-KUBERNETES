@@ -1,0 +1,45 @@
+package com.klef.dev.controller;
+
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+import com.klef.dev.model.Employee;
+import com.klef.dev.service.EmployeeService;
+
+@RestController
+@RequestMapping("/api/employees")
+@CrossOrigin(origins = "http://localhost:5173") // for React frontend
+public class EmployeeController {
+
+    private EmployeeService service;
+
+    @Autowired
+    public EmployeeController(EmployeeService service) {
+        this.service = service;
+    }
+
+    @GetMapping
+    public List<Employee> getAll() {
+        return service.getAllEmployees();
+    }
+
+    @GetMapping("/{id}")
+    public Employee getById(@PathVariable Long id) {
+        return service.getEmployeeById(id);
+    }
+
+    @PostMapping
+    public Employee create(@RequestBody Employee emp) {
+        return service.createEmployee(emp);
+    }
+
+    @PutMapping("/{id}")
+    public Employee update(@PathVariable Long id, @RequestBody Employee emp) {
+        return service.updateEmployee(id, emp);
+    }
+
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Long id) {
+        service.deleteEmployee(id);
+    }
+}
