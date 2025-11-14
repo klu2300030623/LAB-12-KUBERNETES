@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+console.log("API URL:", API_URL);
 
 // ✅ Use environment variable instead of hardcoding
 const API_URL = import.meta.env.VITE_API_URL;
@@ -15,7 +16,8 @@ function App() {
 
   const fetchEmployees = async () => {
     try {
-      const res = await axios.get(API_URL);
+      const res = await axios.get(`${API_URL}`);
+
       setEmployees(res.data);
     } catch (err) {
       console.error("Error fetching employees:", err);
