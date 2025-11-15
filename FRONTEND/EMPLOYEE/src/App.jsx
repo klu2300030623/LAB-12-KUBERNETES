@@ -1,9 +1,20 @@
+// import React, { useEffect, useState } from "react";
+// import axios from "axios";
+// console.log("API URL:", API_URL);
+
+// // ✅ Use environment variable instead of hardcoding
+// const API_URL = import.meta.env.VITE_API_URL;
+
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+
+// ✅ Define first
+const API_URL = import.meta.env.VITE_API_URL;
+
+// ✅ Then use it
 console.log("API URL:", API_URL);
 
-// ✅ Use environment variable instead of hardcoding
-const API_URL = import.meta.env.VITE_API_URL;
+
 
 function App() {
   const [employees, setEmployees] = useState([]);
